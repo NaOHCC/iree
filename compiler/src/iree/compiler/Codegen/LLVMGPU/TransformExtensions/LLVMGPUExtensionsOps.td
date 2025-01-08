@@ -699,8 +699,7 @@ def AMDGPUDistributeVectorsOp :
     }];
 
     let arguments = (ins TransformHandleTypeInterface:$target,
-                         UnitAttr:$test_conversion,
-                         DefaultValuedOptionalAttr<I64Attr, "64">:$subgroup_size);
+                         UnitAttr:$test_conversion);
     let results = (outs TransformHandleTypeInterface:$result);
 
     let assemblyFormat = [{
