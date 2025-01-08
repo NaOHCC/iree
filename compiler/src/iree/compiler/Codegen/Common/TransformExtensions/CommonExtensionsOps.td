@@ -703,4 +703,24 @@ def FuseConsumerOp : Op<Transform_Dialect, "iree.fuse_consumer",
   }];
 }
 
+def AddAttrbuiteOp : Op<Transform_Dialect, "iree.add_attrbuite",
+       [DeclareOpInterfaceMethods<TransformOpInterface>,
+        DeclareOpInterfaceMethods<MemoryEffectsOpInterface>,
+        ReportTrackingListenerFailuresOpTrait]> {
+  let description = [{
+    Add attrbuite to op.
+  }];
+  let cppNamespace = "mlir::iree_compiler::IREE::transform_dialect";
+
+  let arguments =
+    (ins Variadic<TransformHandleTypeInterface>:$target, StrAttr:$key, AnyAttr:$value);
+
+  let results = (outs);
+  
+  let assemblyFormat = [{
+    $target attr-dict `:` functional-type(operands, results)
+  }];
+
+}
+
 #endif // IREE_COMPILER_CODEGEN_COMMON_TRANSFORMEXTENSIONS_COMMONEXTENSIONS

@@ -1237,5 +1237,31 @@ void transform_dialect::FuseConsumerOp::getEffects(
   transform::modifiesPayload(effects);
 }
 
+//===----------------------------------------------------------------------===//
+// AddAttrbuiteOp
+//===----------------------------------------------------------------------===//
+DiagnosedSilenceableFailure transform_dialect::AddAttrbuiteOp::apply(
+    transform::TransformRewriter &rewriter,
+    transform::TransformResults &transformResults,
+    transform::TransformState &state) {
+
+  // check payload ops have "key" attribute
+  for (auto target : getTarget()) {
+    for (Operation *op : state.getPayloadOps(target)) {
+      if (!op->getAttr(getKeyAttr())) {
+        op->setAttr(getKeyAttr(), getValueAttr());
+      }
+    }
+  }
+
+  return DiagnosedSilenceableFailure::success();
+}
+
+void transform_dialect::AddAttrbuiteOp::getEffects(
+    SmallVectorImpl<MemoryEffects::EffectInstance> &effects) {
+  transform::onlyReadsHandle(getTargetMutable(), effects);
+  transform::modifiesPayload(effects);
+}
+
 #define GET_OP_CLASSES
 #include "iree/compiler/Codegen/Common/TransformExtensions/CommonExtensionsOps.cpp.inc"
