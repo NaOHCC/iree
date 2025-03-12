@@ -53,10 +53,13 @@
 #include "mlir/Dialect/Tensor/TransformOps/TensorTransformOps.h"
 #include "mlir/Dialect/Transform/IR/TransformDialect.h"
 #include "mlir/Dialect/Transform/LoopExtension/LoopExtension.h"
+#include "mlir/Dialect/UB/IR/UBOps.h"
 #include "mlir/Dialect/Vector/IR/VectorOps.h"
 #include "mlir/Dialect/Vector/TransformOps/VectorTransformOps.h"
 
 #include "mlir/IR/Dialect.h"
+#include "mlir/InitAllDialects.h"
+#include "mlir/InitAllExtensions.h"
 
 #ifdef IREE_HAVE_C_OUTPUT_FORMAT
 #include "mlir/Dialect/EmitC/IR/EmitC.h"
@@ -95,7 +98,11 @@ inline void registerMlirDialects(DialectRegistry &registry) {
                   vector::VectorDialect,
                   tensor::TensorDialect,
                   transform::TransformDialect,
+                  ub::UBDialect,
                   shape::ShapeDialect>();
+  mlir::registerAllDialects(registry);
+  mlir::registerAllExtensions(registry);
+
   // clang-format on
   cf::registerBufferizableOpInterfaceExternalModels(registry);
   func::registerInlinerExtension(registry);

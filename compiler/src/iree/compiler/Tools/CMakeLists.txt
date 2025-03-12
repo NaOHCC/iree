@@ -6,7 +6,10 @@
 
 # Doesn't use bazel_to_cmake because of various special logic throughout.
 # That there's various special logic throughout is _bad_. Don't replicate this.
-
+get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
+get_property(conversion_libs GLOBAL PROPERTY MLIR_CONVERSION_LIBS)
+get_property(extension_libs GLOBAL PROPERTY MLIR_EXTENSION_LIBS)
+get_property(translation_libs GLOBAL PROPERTY MLIR_TRANSLATION_LIBS)
 # Enable compiler targets based on options.
 set(IREE_COMPILER_TARGETS "")
 set(IREE_COMPILER_TARGET_COPTS "")
@@ -122,6 +125,11 @@ iree_cc_library(
     MLIRVectorTransformOps
     MLIRTransformLoopExtension
     MLIRComplexToStandard
+
+  ${dialect_libs}
+  ${translation_libs}
+  ${conversion_libs}
+  ${extension_libs}
   PUBLIC
 )
 

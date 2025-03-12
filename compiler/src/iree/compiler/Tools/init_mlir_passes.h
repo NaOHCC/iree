@@ -25,6 +25,8 @@
 #include "mlir/Dialect/SPIRV/Transforms/Passes.h"
 #include "mlir/Dialect/Shape/Transforms/Passes.h"
 #include "mlir/Dialect/Transform/Transforms/Passes.h"
+#include "mlir/InitAllExtensions.h"
+#include "mlir/InitAllPasses.h"
 #include "mlir/Transforms/Passes.h"
 
 namespace mlir {
@@ -87,6 +89,8 @@ inline void registerMlirPasses() {
 
   // Transform Dialect
   transform::registerTransformPasses();
+
+  mlir::registerAllPasses();
 }
 
 } // namespace mlir
