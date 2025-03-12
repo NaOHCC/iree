@@ -118,6 +118,16 @@ declare_mlir_dialect_python_bindings(
   DIALECT_NAME iree_gpu
 )
 
+declare_mlir_dialect_extension_python_bindings(
+  ADD_TO_PARENT IREEPythonSources.Dialects
+  ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/iree/compiler"
+  TD_FILE dialects/IREETransformBinding.td
+  # GEN_ENUM_BINDINGS
+  SOURCES dialects/iree_transform.py
+  DIALECT_NAME transform
+  EXTENSION_NAME iree_transform
+)
+
 declare_mlir_python_sources(IREECompilerAPIPythonCore
   ADD_TO_PARENT IREEPythonSources
   ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/iree/compiler"
