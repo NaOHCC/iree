@@ -35,8 +35,8 @@ documented in the source control system (vs automagically/opaquely at a low
 level of the build).
 """
 
-from pathlib import Path
 import re
+from pathlib import Path
 from typing import List
 
 LOCAL_HEADER_FILES = [
@@ -65,6 +65,9 @@ MLIR_C_HEADER_FILES = [
     "Dialect/Transform.h",
     "Dialect/Transform/Interpreter.h",
     "Dialect/PDL.h",
+    "Dialect/NVGPU.h",
+    # "RegisterEverything.h",
+    "ExecutionEngine.h",
 ]
 
 IREE_DIALECTS_HEADER_FILES = [

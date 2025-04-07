@@ -72,10 +72,10 @@ EXPORTS
   ireeCompilerSourceWrapBuffer
   ireeGPULoweringConfigAttrGet
   ireeGPULoweringConfigAttrGetAttributes
-  ireeGPULoweringConfigAttrGetTypeID
-  ireeGPULoweringConfigAttrGetTileSizes
-  ireeGPULoweringConfigAttrGetSubgroupCount
   ireeGPULoweringConfigAttrGetMmaKind
+  ireeGPULoweringConfigAttrGetSubgroupCount
+  ireeGPULoweringConfigAttrGetTileSizes
+  ireeGPULoweringConfigAttrGetTypeID
   ireeGPUMMAAttrGet
   ireeGPUMMAAttrGetInfo
   ireeGPUMMAAttrGetTypeID
@@ -248,7 +248,9 @@ EXPORTS
   mlirContextGetAllowUnregisteredDialects
   mlirContextGetNumLoadedDialects
   mlirContextGetNumRegisteredDialects
+  mlirContextGetNumThreads
   mlirContextGetOrLoadDialect
+  mlirContextGetThreadPool
   mlirContextIsRegisteredOperation
   mlirContextLoadAllAvailableDialects
   mlirContextSetAllowUnregisteredDialects
@@ -275,6 +277,7 @@ EXPORTS
   mlirDenseElementsAttrGetDoubleValue
   mlirDenseElementsAttrGetFloatSplatValue
   mlirDenseElementsAttrGetFloatValue
+  mlirDenseElementsAttrGetIndexValue
   mlirDenseElementsAttrGetInt16Value
   mlirDenseElementsAttrGetInt32SplatValue
   mlirDenseElementsAttrGetInt32Value
@@ -359,6 +362,13 @@ EXPORTS
   mlirElementsAttrIsValidIndex
   mlirEmitError
   mlirEnableGlobalDebug
+  mlirExecutionEngineCreate
+  mlirExecutionEngineDestroy
+  mlirExecutionEngineDumpToObjectFile
+  mlirExecutionEngineInvokePacked
+  mlirExecutionEngineLookup
+  mlirExecutionEngineLookupPacked
+  mlirExecutionEngineRegisterSymbol
   mlirExternalPassSignalFailure
   mlirF16TypeGet
   mlirF32TypeGet
@@ -466,6 +476,7 @@ EXPORTS
   mlirIsCurrentDebugType
   mlirIsGlobalDebugEnabled
   mlirLLVMArrayTypeGet
+  mlirLLVMArrayTypeGetElementType
   mlirLLVMCConvAttrGet
   mlirLLVMComdatAttrGet
   mlirLLVMDIAnnotationAttrGet
@@ -497,6 +508,9 @@ EXPORTS
   mlirLLVMDISubprogramAttrGetType
   mlirLLVMDISubroutineTypeAttrGet
   mlirLLVMFunctionTypeGet
+  mlirLLVMFunctionTypeGetInput
+  mlirLLVMFunctionTypeGetNumInputs
+  mlirLLVMFunctionTypeGetReturnType
   mlirLLVMLinkageAttrGet
   mlirLLVMPointerTypeGet
   mlirLLVMPointerTypeGetAddressSpace
@@ -517,13 +531,34 @@ EXPORTS
   mlirLlvmThreadPoolCreate
   mlirLlvmThreadPoolDestroy
   mlirLocationCallSiteGet
+  mlirLocationCallSiteGetCallee
+  mlirLocationCallSiteGetCaller
+  mlirLocationCallSiteGetTypeID
   mlirLocationEqual
   mlirLocationFileLineColGet
+  mlirLocationFileLineColRangeGet
+  mlirLocationFileLineColRangeGetEndColumn
+  mlirLocationFileLineColRangeGetEndLine
+  mlirLocationFileLineColRangeGetFilename
+  mlirLocationFileLineColRangeGetStartColumn
+  mlirLocationFileLineColRangeGetStartLine
+  mlirLocationFileLineColRangeGetTypeID
   mlirLocationFromAttribute
   mlirLocationFusedGet
+  mlirLocationFusedGetLocations
+  mlirLocationFusedGetMetadata
+  mlirLocationFusedGetNumLocations
+  mlirLocationFusedGetTypeID
   mlirLocationGetAttribute
   mlirLocationGetContext
+  mlirLocationIsACallSite
+  mlirLocationIsAFileLineColRange
+  mlirLocationIsAFused
+  mlirLocationIsAName
   mlirLocationNameGet
+  mlirLocationNameGetChildLoc
+  mlirLocationNameGetName
+  mlirLocationNameGetTypeID
   mlirLocationPrint
   mlirLocationUnknownGet
   mlirMemRefTypeContiguousGet
@@ -538,11 +573,13 @@ EXPORTS
   mlirMergeSymbolsIntoFromClone
   mlirModuleCreateEmpty
   mlirModuleCreateParse
+  mlirModuleCreateParseFromFile
   mlirModuleDestroy
   mlirModuleFromOperation
   mlirModuleGetBody
   mlirModuleGetContext
   mlirModuleGetOperation
+  mlirNVGPUTensorMapDescriptorTypeGet
   mlirNamedAttributeGet
   mlirNoneTypeGet
   mlirNoneTypeGetTypeID
@@ -561,6 +598,7 @@ EXPORTS
   mlirOpPrintingFlagsElideLargeResourceString
   mlirOpPrintingFlagsEnableDebugInfo
   mlirOpPrintingFlagsPrintGenericOpForm
+  mlirOpPrintingFlagsPrintNameLocAsPrefix
   mlirOpPrintingFlagsSkipRegions
   mlirOpPrintingFlagsUseLocalScope
   mlirOpResultGetOwner
@@ -803,6 +841,7 @@ EXPORTS
   mlirTypeIsALLVMPointerType
   mlirTypeIsALLVMStructType
   mlirTypeIsAMemRef
+  mlirTypeIsANVGPUTensorMapDescriptorType
   mlirTypeIsANone
   mlirTypeIsAOpaque
   mlirTypeIsAPDLAttributeType
@@ -849,12 +888,15 @@ EXPORTS
   mlirUnrankedTensorTypeGetTypeID
   mlirValueDump
   mlirValueEqual
+  mlirValueGetContext
   mlirValueGetFirstUse
+  mlirValueGetLocation
   mlirValueGetType
   mlirValueIsABlockArgument
   mlirValueIsAOpResult
   mlirValuePrint
   mlirValuePrintAsOperand
+  mlirValueReplaceAllUsesExcept
   mlirValueReplaceAllUsesOfWith
   mlirValueSetType
   mlirVectorTypeGet

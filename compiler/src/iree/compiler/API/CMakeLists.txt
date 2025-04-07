@@ -76,6 +76,9 @@ set(_EXPORT_OBJECT_LIBS
   obj.MLIRCAPITransforms
   obj.MLIRCAPITransformDialect
   obj.MLIRCAPITransformDialectTransforms
+  # obj.MLIRCAPIRegisterEverything
+  obj.MLIRCAPIExecutionEngine
+  obj.MLIRCAPINVGPU
   iree_compiler_API_Internal_CompilerDriver.objects
   iree_compiler_API_Internal_IREECompileToolEntryPoint.objects
   iree_compiler_API_Internal_IREECodegenDialectCAPI.objects
@@ -179,6 +182,9 @@ target_sources(iree_compiler_API_SharedImpl PRIVATE
 # isolated boundary for C consumers.
 target_link_libraries(iree_compiler_API_SharedImpl PRIVATE
   ${_EXPORT_OBJECT_DEPS}
+  MLIRBuiltinToLLVMIRTranslation
+  MLIRExecutionEngine
+  MLIRLLVMToLLVMIRTranslation
 )
 
 # If not using sanitizers, ask linkers to error on undefined symbols.
@@ -206,13 +212,18 @@ set_target_properties(
 # We can install shared libraries and export them without exporting their
 # deps. This wouldn't work if this were a static library as we'd need to
 # untangle the exporting of all of LLVM.
-iree_install_targets(
-  TARGETS
-    iree_compiler_API_SharedImpl
-  COMPONENT
-    IREERuntimeLibraries-Compiler
-  EXPORT_SET
-    Compiler
+# iree_install_targets(
+#   TARGETS
+#     iree_compiler_API_SharedImpl
+#   COMPONENT
+#     IREERuntimeLibraries-Compiler
+#   EXPORT_SET
+#     Compiler
+# )
+
+install(
+  TARGETS iree_compiler_API_SharedImpl
+  COMPONENT IREERuntimeLibraries-Compiler
 )
 
 # Signal the main shared library/dll as part of the bundle of files that

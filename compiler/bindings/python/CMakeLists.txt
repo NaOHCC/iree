@@ -218,32 +218,12 @@ set(_SOURCE_COMPONENTS
   IREEPythonSources
 
   MLIRPythonSources.Core
-
+  
   # Core dialects.
-  MLIRPythonSources.Dialects
-  MLIRPythonSources.Dialects.affine
-  MLIRPythonSources.Dialects.amdgpu
-  MLIRPythonSources.Dialects.arith
-  MLIRPythonSources.Dialects.builtin
-  MLIRPythonSources.Dialects.cf
-  MLIRPythonSources.Dialects.complex
-  MLIRPythonSources.Dialects.func
-  MLIRPythonSources.Dialects.gpu
-  MLIRPythonSources.Dialects.linalg
-  MLIRPythonSources.Dialects.llvm
-  MLIRPythonSources.Dialects.math
-  MLIRPythonSources.Dialects.memref
-  MLIRPythonSources.Dialects.pdl
-  MLIRPythonSources.Dialects.rocdl
-  MLIRPythonSources.Dialects.scf
-  MLIRPythonSources.Dialects.shape
-  MLIRPythonSources.Dialects.structured_transform
-  MLIRPythonSources.Dialects.tensor
-  MLIRPythonSources.Dialects.tosa
-  MLIRPythonSources.Dialects.transform
-  MLIRPythonSources.Dialects.transform.extras
-  MLIRPythonSources.Dialects.transform.interpreter
-  MLIRPythonSources.Dialects.vector
+  MLIRPythonSources
+  MLIRPythonExtension.Core
+  MLIRPythonExtension.RegisterEverything
+
 
   # iree-dialects project.
   IREEDialectsPythonSources
