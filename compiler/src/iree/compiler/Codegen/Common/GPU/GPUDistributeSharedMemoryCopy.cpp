@@ -16,6 +16,7 @@
 #include "mlir/Dialect/Affine/IR/AffineOps.h"
 #include "mlir/Dialect/Arith/IR/Arith.h"
 #include "mlir/Dialect/GPU/IR/GPUDialect.h"
+#include "mlir/Dialect/MemRef/IR/MemRef.h"
 #include "mlir/Dialect/SCF/Utils/Utils.h"
 #include "mlir/Dialect/Vector/Transforms/VectorTransforms.h"
 #include "mlir/IR/Builders.h"
@@ -278,6 +279,11 @@ vectorizeCopyToWorkgroupMemoryOps(mlir::FunctionOpInterface funcOp) {
 
   funcOp.walk([&](linalg::GenericOp op) {
     if (succeeded(filter.checkAndNotify(rewriter, op))) {
+      auto src = op->getOperand(0);
+      auto dest = op->getOperand(1);
+      rewriter.setInsertionPoint(op);
+      rewriter.create<memref::AssumeAlignmentOp>(op->getLoc(), src, 16);
+      rewriter.create<memref::AssumeAlignmentOp>(op->getLoc(), dest, 16);
       (void)linalg::vectorize(rewriter, op);
     }
   });
