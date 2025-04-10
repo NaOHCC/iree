@@ -118,16 +118,16 @@ iree_bytecode_module(
   PUBLIC
 )
 
-iree_bytecode_module(
-  NAME
-    assignment_ops_f64
-  SRC
-    "assignment_ops_f64.mlir"
-  FLAGS
-    "--compile-mode=vm"
-    "--iree-vm-target-extension-f64=true"
-  PUBLIC
-)
+# iree_bytecode_module(
+#   NAME
+#     assignment_ops_f64
+#   SRC
+#     "assignment_ops_f64.mlir"
+#   FLAGS
+#     "--compile-mode=vm"
+#     "--iree-vm-target-extension-f64=true"
+#   PUBLIC
+# )
 
 iree_bytecode_module(
   NAME

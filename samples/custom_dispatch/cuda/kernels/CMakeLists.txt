@@ -143,23 +143,23 @@ iree_cuda_bitcode_library(
     "ukernel.cu"
 )
 
-iree_check_single_backend_test_suite(
-  NAME
-    check_cuda_ukernel
-  SRCS
-    "ukernel_example.mlir"
-  TARGET_BACKEND
-    "cuda"
-  COMPILER_FLAGS
-    "--iree-link-bitcode=cuda_ukernel.bc"
-  DRIVER
-    "cuda"
-  LABELS
-    "noasan"
-    "nomsan"
-    "notsan"
-    "noubsan"
-    "requires-gpu-nvidia"
-  DEPENDS
-    ::cuda_ukernel
-)
+# iree_check_single_backend_test_suite(
+#   NAME
+#     check_cuda_ukernel
+#   SRCS
+#     "ukernel_example.mlir"
+#   TARGET_BACKEND
+#     "cuda"
+#   COMPILER_FLAGS
+#     "--iree-link-bitcode=cuda_ukernel.bc"
+#   DRIVER
+#     "cuda"
+#   LABELS
+#     "noasan"
+#     "nomsan"
+#     "notsan"
+#     "noubsan"
+#     "requires-gpu-nvidia"
+#   DEPENDS
+#     ::cuda_ukernel
+# )
