@@ -43,6 +43,33 @@ def LLVMGPUAssignConstantOrdinalsPass :
   let summary = "Assigns executable constant ordinals across all LLVMGPU variants.";
 }
 
+def LLVMGPUConvertStaticSharedMemoryAllocPass :
+    InterfacePass<"iree-llvmgpu-convert-static-shared-memory-alloc", "mlir::FunctionOpInterface"> {
+  let summary = "Convert static shared memory allocation to dynamic shared memory allocation.";
+  let options = [
+    Option<"enableDropAddressSpace", "enable-drop-address-space", "bool",/*default=*/"false",
+      "Enable dropping address space for shared memory allocation.">,
+  ];
+}
+
+def LLVMGPUAssumeArgumentAlignmentPass :
+    InterfacePass<"iree-llvmgpu-assume-argument-alignment", "mlir::FunctionOpInterface"> {
+  let summary = "Assume argument alignment for function arguments.";
+  let options = [
+    Option<"alignment", "alignment", "int64_t", /*default=*/"4",
+      "Specifies the alignment value (in bytes) to assume for function arguments.">,
+  ];
+}
+
+def LLVMGPUThreadBlcokSwizzlePass :
+    InterfacePass<"iree-llvmgpu-thread-block-swizzle", "mlir::FunctionOpInterface"> {
+  let summary = "Pass to swizzle thread blocks for better memory access patterns.";
+  let options = [
+    Option<"panelWidth", "panel-width", "int64_t", /*default=*/"4",
+      "Specifies the panel size for swizzling.">,
+  ];
+}
+
 def LLVMGPUCastAddressSpaceFunctionPass :
     Pass<"iree-llvmgpu-cast-address-space-function", "ModuleOp"> {
   let summary = "Cast address space to generic in CallOp and FuncOp";
