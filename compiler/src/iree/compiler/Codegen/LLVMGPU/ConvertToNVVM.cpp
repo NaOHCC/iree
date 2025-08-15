@@ -128,20 +128,21 @@ struct ConvertToNVVMPass final
         return signalPassFailure();
       }
     }
-    {
-      // Convert arith::maximumf/minimumf ops on older gpus since the lowering
-      // is faulty for them.
-      // TODO: Remove this once the lowering in LLVM is fixed
-      // (https://github.com/llvm/llvm-project/issues/64606).
-      std::optional<int> cc = getGPUTargetAttr(m).getCUDAComputeCapability();
-      if (!cc || cc.value() < 80) {
-        RewritePatternSet patterns(&getContext());
-        populateReplaceSlowMinMaxOpsPatterns(patterns);
-        if (failed(applyPatternsGreedily(m, std::move(patterns)))) {
-          return signalPassFailure();
-        }
-      }
-    }
+    // {
+    //   // Convert arith::maximumf/minimumf ops on older gpus since the
+    //   lowering
+    //   // is faulty for them.
+    //   // TODO: Remove this once the lowering in LLVM is fixed
+    //   // (https://github.com/llvm/llvm-project/issues/64606).
+    //   std::optional<int> cc = getGPUTargetAttr(m).getCUDAComputeCapability();
+    //   if (!cc || cc.value() < 80) {
+    //     RewritePatternSet patterns(&getContext());
+    //     populateReplaceSlowMinMaxOpsPatterns(patterns);
+    //     if (failed(applyPatternsGreedily(m, std::move(patterns)))) {
+    //       return signalPassFailure();
+    //     }
+    //   }
+    // }
     {
       RewritePatternSet llvmPatterns(&getContext());
       populateLowerHALInterfaceOp(llvmPatterns);
@@ -179,7 +180,7 @@ struct ConvertToNVVMPass final
           LLVM::RoundEvenOp, LLVM::RoundOp, LLVM::SinOp, LLVM::SqrtOp>();
 
       // TODO: Remove once we support replacing non-root ops.
-      target.addLegalOp<gpu::YieldOp, gpu::GPUModuleOp>();
+      target.addLegalOp<gpu::YieldOp, gpu::GPUModuleOp, gpu::LaunchFuncOp>();
 
       if (failed(applyPartialConversion(m, target, std::move(llvmPatterns)))) {
         signalPassFailure();
@@ -193,7 +194,7 @@ struct ConvertToNVVMPass final
         return signalPassFailure();
       }
     }
-    ConvertToDynamicSharedMemory(m);
+    // ConvertToDynamicSharedMemory(m);
   }
 };
 
