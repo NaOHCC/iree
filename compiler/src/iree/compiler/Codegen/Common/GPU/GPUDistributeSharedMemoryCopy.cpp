@@ -279,11 +279,7 @@ vectorizeCopyToWorkgroupMemoryOps(mlir::FunctionOpInterface funcOp) {
 
   funcOp.walk([&](linalg::GenericOp op) {
     if (succeeded(filter.checkAndNotify(rewriter, op))) {
-      auto src = op->getOperand(0);
-      auto dest = op->getOperand(1);
       rewriter.setInsertionPoint(op);
-      rewriter.create<memref::AssumeAlignmentOp>(op->getLoc(), src, 16);
-      rewriter.create<memref::AssumeAlignmentOp>(op->getLoc(), dest, 16);
       (void)linalg::vectorize(rewriter, op);
     }
   });
